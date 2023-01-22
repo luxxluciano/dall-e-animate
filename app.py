@@ -2,7 +2,7 @@ import streamlit as st
 import cv2
 import numpy as np
 from matplotlib.animation import FuncAnimation
-import streamlit.files as files
+import tempfile
 
 def main():
     st.set_page_config(page_title="DALL-E Mini Image Generator", page_icon=":camera:", layout="wide")
@@ -11,7 +11,9 @@ def main():
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
     if uploaded_file:
         # Save the uploaded file to a temporary location
-        file_path = files.save(uploaded_file, "uploaded_image.jpg")
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".jpg") as temp:
+            temp.write(uploaded_file.read())
+            file_path = temp.name
         img = cv2.imread(file_path)
         st.image(img, width=512)
         if st.button("Apply Inpainting"):

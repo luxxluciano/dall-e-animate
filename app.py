@@ -3,6 +3,7 @@ import cv2
 import numpy as np
 from matplotlib.animation import FuncAnimation
 import tempfile
+import matplotlib.pyplot as plt
 
 def main():
     st.set_page_config(page_title="DALL-E Mini Image Generator", page_icon=":camera:", layout="wide")
